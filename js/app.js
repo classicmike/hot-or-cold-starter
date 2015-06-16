@@ -4,6 +4,8 @@
 (function($){
     var hotAndCold = {};
 
+    /***--------- UTILS ------------ ***/
+
     hotAndCold.Utils = {};
 
     hotAndCold.Utils.isInteger = function(x){
@@ -20,6 +22,7 @@
         }
     };
 
+    /***--------- UTILS ------------ ***/
 
     /***--------- GUESS MODEL ------------ ***/
 
