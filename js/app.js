@@ -143,14 +143,17 @@
     };
 
     hotAndCold.View.prototype.whatClicked = function(event){
+        event.preventDefault();
         this.overlayElement.fadeIn(1000);
     };
 
-    hotAndCold.View.prototype.closeClicked = function(){
+    hotAndCold.View.prototype.closeClicked = function(event){
+        event.preventDefault();
         this.overlayElement.fadeOut(1000);
     };
 
-    hotAndCold.View.prototype.newClicked = function(){
+    hotAndCold.View.prototype.newClicked = function(event){
+        event.preventDefault();
         this.resetUI();
     };
 
