@@ -219,6 +219,13 @@ h2 {
 	border-top-left-radius: 4px;
 	border-top-right-radius: 4px;
 	color: #fff;
+    -moz-transition: background 2s;
+    -webktit-transition: background 2s;
+    transition: background 2s;
+}
+
+h2.correct {
+    background: #11a8ab;
 }
 
 .game p {
