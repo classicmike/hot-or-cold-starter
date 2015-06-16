@@ -82,7 +82,6 @@
     hotAndCold.Controller.prototype.setUp = function(){
         this.guessesList = new hotAndCold.GuessesList();
         this.generateCorrectAnswer();
-        console.log('Correct Answer: ' + this.correctAnswer.number);
     };
 
     //check if the number is correct and returns either true or false
