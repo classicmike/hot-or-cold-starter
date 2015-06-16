@@ -250,15 +250,15 @@
         var difference = this.controller.calculateGuessAnswerDifference();
         var message = hotAndCold.View.HOT_COLD_MESSAGE_STARTER;
 
-        if(difference > 50){
+        if(difference > 20){
             message += hotAndCold.View.ICE_COLD_TEXT;
-        } else if(difference > 30 && difference <= 50){
+        } else if(difference > 15 && difference <= 20){
             message += hotAndCold.View.COLD_TEXT;
-        } else if(difference > 20 && difference <= 30){
+        } else if(difference > 10 && difference <= 15){
             message += hotAndCold.View.WARM_TEXT;
-        } else if(difference > 10 && difference <= 20){
+        } else if(difference > 5 && difference <= 10){
             message += hotAndCold.View.HOT_TEXT;
-        } else if(difference >= 1 && difference <= 10){
+        } else if(difference >= 1 && difference <= 5){
             message += hotAndCold.View.VERY_HOT_TEXT;
         }
 
@@ -307,7 +307,7 @@
     hotAndCold.View.CORRECT_ANSWER_TEXT = 'Yay! You have guessed the number!';
     hotAndCold.View.DEFAULT_TEXT = 'Make your Guess!';
 
-    hotAndCold.View.HOT_COLD_MESSAGE_STARTER = 'Your\'e Getting ';
+    hotAndCold.View.HOT_COLD_MESSAGE_STARTER = 'You\'re Getting ';
     hotAndCold.View.WRONG_ANSWER_TEXT = 'Try Again!';
 
     hotAndCold.View.ICE_COLD_TEXT = 'Ice Cold';
