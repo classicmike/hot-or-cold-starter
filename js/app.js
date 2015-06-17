@@ -27,13 +27,26 @@
     /***--------- GUESS MODEL ------------ ***/
 
     hotAndCold.Guess = function(number){
-        this.number = hotAndCold.Utils.isInteger(number) ? number : 0;
+        this.number = hotAndCold.Utils.isInteger(number) ? parseInt(number) : 0;
         this.status = hotAndCold.Answer.INCORRECT;
         hotAndCold.Guess.id++;
     };
 
     hotAndCold.Guess.prototype.wasCorrect = function(){
       return this.status === hotAndCold.Answer.CORRECT;
+    };
+
+    hotAndCold.Guess.prototype.checkIfCorrect = function(answer){
+        if(!answer){
+            return false;
+        }
+
+        if(parseInt(answer.number) === parseInt(this.number)){
+            this.status = hotAndCold.Answer.CORRECT;
+            return true;
+        }
+
+        return false;
     };
 
     hotAndCold.Guess.id = 0;
@@ -46,12 +59,16 @@
         this.guesses = [];
     };
 
-    hotAndCold.GuessesList.prototype.addGuess = function(guess){
-        if(!guess){
+    hotAndCold.GuessesList.prototype.addGuess = function(number){
+        //add new guess
+        if(!number || !hotAndCold.Utils.isInteger(number)){
             return;
         }
 
+        var guess = new hotAndCold.Guess(number);
         this.guesses.push(guess);
+
+        return guess;
     };
 
     hotAndCold.GuessesList.prototype.getPreviousGuess = function(){
@@ -85,26 +102,17 @@
     hotAndCold.Controller.prototype.setUp = function(){
         this.guessesList = new hotAndCold.GuessesList();
         this.generateCorrectAnswer();
+        console.log(this.correctAnswer);
     };
 
     //check if the number is correct and returns either true or false
     hotAndCold.Controller.prototype.checkIfCorrect = function(number){
-        var result = false;
-
-        if(hotAndCold.Utils.isInteger(number)){
-
-            var guess = new hotAndCold.Guess(parseInt(number));
-
-            if(parseInt(this.correctAnswer.number) === guess.number){
-                guess.status = hotAndCold.Answer.CORRECT;
-                result = true;
-            }
-
-            this.guessesList.addGuess(guess);
-
+        if(!hotAndCold.Utils.isInteger(number)){
+            return false;
         }
 
-        return result;
+        var guess = this.guessesList.addGuess(number);
+        return guess.checkIfCorrect(this.correctAnswer);
 
     };
 
@@ -126,12 +134,12 @@
         if(controller){
             this.controller = controller;
             this.setEvents();
-            this.feedbackElement = $('#' + hotAndCold.View.FEEDBACK_ID);
-            this.overlayElement = $('.' + hotAndCold.View.OVERLAY_CLASS);
-            this.countElement = $('#' + hotAndCold.View.COUNT_ID);
-            this.guessListElement = $('#' + hotAndCold.View.GUESS_LIST_ID);
-            this.submitElement = $('#' + hotAndCold.View.SUBMIT_BUTTON_ID);
-            this.guessInputElement = $('#' + hotAndCold.View.GUESS_INPUT_ID);
+            this.feedbackElement = $(hotAndCold.View.FEEDBACK_ID);
+            this.overlayElement = $(hotAndCold.View.OVERLAY_CLASS);
+            this.countElement = $(hotAndCold.View.COUNT_ID);
+            this.guessListElement = $(hotAndCold.View.GUESS_LIST_ID);
+            this.submitElement = $(hotAndCold.View.SUBMIT_BUTTON_ID);
+            this.guessInputElement = $(hotAndCold.View.GUESS_INPUT_ID);
         }
     };
 
@@ -286,21 +294,21 @@
     };
 
     //other elements in the view.
-    hotAndCold.View.COUNT_ID = 'count';
-    hotAndCold.View.GUESS_LIST_ID = 'guessList';
-    hotAndCold.View.OVERLAY_CLASS = 'overlay';
+    hotAndCold.View.COUNT_ID = '#count';
+    hotAndCold.View.GUESS_LIST_ID = '#guessList';
+    hotAndCold.View.OVERLAY_CLASS = '.overlay';
 
     //guess submit button
     hotAndCold.View.SUBMIT_TEXT = 'Guess';
-    hotAndCold.View.SUBMIT_BUTTON_ID = 'guessButton';
+    hotAndCold.View.SUBMIT_BUTTON_ID = '#guessButton';
 
     hotAndCold.View.START_AGAIN_TEXT = 'Start Again';
 
     //guess input
-    hotAndCold.View.GUESS_INPUT_ID = 'userGuess';
+    hotAndCold.View.GUESS_INPUT_ID = '#userGuess';
 
     //feedback element based static variables
-    hotAndCold.View.FEEDBACK_ID = 'feedback';
+    hotAndCold.View.FEEDBACK_ID = '#feedback';
     hotAndCold.View.FEEDBACK_CORRECT_CLASSNAME = 'correct';
 
     //feedback based text responses.
